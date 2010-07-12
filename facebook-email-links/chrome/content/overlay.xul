@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://facebook-email-links/content/overlay.js"></script>
+	<script type="application/x-javascript">
+		<![CDATA[
+		
+		addEventListener("load", FB_MAILTO.load, false);
+		
+		]]>
+	</script>
+</overlay>
