@@ -3,7 +3,7 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>facebook-email-links@efinke.com</em:id>
 		<em:name>Facebook Email Links</em:name>
-		<em:version>1.0</em:version>
+		<em:version>1.0.1</em:version>
 		<em:description>Converts plain-text email addresses in Facebook profiles to mailto: links.</em:description>
 		<em:creator>Christopher Finke</em:creator>
 
@@ -13,7 +13,7 @@
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
 				<em:minVersion>3.5</em:minVersion>
-				<em:maxVersion>4.0</em:maxVersion>
+				<em:maxVersion>4.0b3pre</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 		
@@ -22,8 +22,8 @@
 		<em:targetApplication>
 			<Description>
 				<em:id>{a23983c0-fd0e-11dc-95ff-0800200c9a66}</em:id>
-				<em:minVersion>1.0a1</em:minVersion>
-				<em:maxVersion>1.1a2pre</em:maxVersion>
+				<em:minVersion>1.0</em:minVersion>
+				<em:maxVersion>1.1.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 

@@ -46,42 +46,41 @@ var FB_MAILTO = {
 	},
 	
 	addMailto : function (page) {
-		var info = page.getElementById("info_section_info_contact");
+		var tables = page.getElementsByClassName("profileInfoTable");
 		
-		if (info) {
-			var dl = info.getElementsByClassName("info");
+		outerLoop : for (var i = 0, _ilen = tables.length; i < _ilen; i++) {
+			var table = tables[i];
 			
-			if (dl && dl.length > 0) {
-				dl = dl[0];
+			var dataCells = table.getElementsByClassName("data");
+			
+			for (var j = 0, _jlen = dataCells.length; j < _jlen; j++) {
+				var cell = dataCells[j];
 				
-				var dds = dl.getElementsByTagName("dd");
+				if (cell.getElementsByClassName("data").length > 0) {
+					continue;
+				}
 				
-				for (var i = 0; i < dds.length; i++) {
-					var dd = dds[i];
-					var html = dd.innerHTML;
+				var html = cell.innerHTML;
+				
+				if (html.indexOf("@") > 0) {
+					var linkedParts = [];
 					
-					var hasEmail = html.indexOf("@");
+					parts = html.replace(/<[^>]+>/g, " ").replace(/^\s+|\s+$/g, "").split(/\s/);
 					
-					if (hasEmail) {
-						var linkedParts = [];
+					for (var i = 0; i < parts.length; i++) {
+						var part = parts[i];
 						
-						parts = html.replace(/<[^>]+>/g, " ").replace(/^\s+|\s+$/g, "").split(/\s/);
-						
-						for (var i = 0; i < parts.length; i++) {
-							var part = parts[i];
-							
-							if (part.indexOf("@")) {
-								part = '<a href="mailto:'+part+'">'+part+'</a>';
-							}
-							
-							linkedParts.push(part);
+						if (part.indexOf("@")) {
+							part = '<a href="mailto:'+part+'">'+part+'</a>';
 						}
 						
-						html = linkedParts.join("<br />");
-						
-						dd.innerHTML = html;
-						break;
+						linkedParts.push(part);
 					}
+					
+					html = linkedParts.join("<br />");
+					
+					cell.innerHTML = html;
+					break outerLoop;
 				}
 			}
 		}
