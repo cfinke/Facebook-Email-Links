@@ -10,11 +10,6 @@ rm -rf `find . -name ".git"`
 rm -rf `find . -name ".DS_Store"`
 rm -rf `find . -name "Thumbs.db"`
 
-cd chrome/
-zip -rq ../facebook-email-links.jar *
-rm -rf *
-mv ../facebook-email-links.jar ./
-cd ../
 zip -rq ~/Desktop/facebook-email-links.xpi *
 cd ..
 
