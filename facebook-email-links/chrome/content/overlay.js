@@ -40,50 +40,28 @@ var FB_MAILTO = {
 			var page = event.originalTarget;
 			
 			if (page.location.href.match(/facebook\.com\//i)) {
-				FB_MAILTO.addMailto(page);
+				setTimeout(FB_MAILTO.addMailto, 500, page);//(page);
 			}
 		}
 	},
 	
 	addMailto : function (page) {
-		var tables = page.getElementsByClassName("profileInfoTable");
+		var cells = page.getElementsByClassName("uiListItem");
 		
-		outerLoop : for (var i = 0, _ilen = tables.length; i < _ilen; i++) {
-			var table = tables[i];
+		for (var i = 0, _len = cells.length; i < _len; i++) {
+			var cell = cells[i];
 			
-			var dataCells = table.getElementsByClassName("data");
+			var html = cell.innerHTML;
 			
-			for (var j = 0, _jlen = dataCells.length; j < _jlen; j++) {
-				var cell = dataCells[j];
-				
-				if (cell.getElementsByClassName("data").length > 0) {
-					continue;
-				}
-				
-				var html = cell.innerHTML;
-				
-				if (html.indexOf("@") > 0) {
-					var linkedParts = [];
-					
-					parts = html.replace(/<[^>]+>/g, " ").replace(/^\s+|\s+$/g, "").split(/\s/);
-					
-					for (var i = 0; i < parts.length; i++) {
-						var part = parts[i];
-						
-						if (part.indexOf("@")) {
-							part = '<a href="mailto:'+part+'">'+part+'</a>';
-						}
-						
-						linkedParts.push(part);
-					}
-					
-					html = linkedParts.join("<br />");
-					
-					cell.innerHTML = html;
-					break outerLoop;
-				}
+			if (html.indexOf("mailto:") == -1 && html.indexOf("@") != -1) {
+				cell.innerHTML = '<a href="mailto:' + html + '">'+html+'</a>';
 			}
 		}
+	},
+	
+	log : function (msg) {
+		var consoleService = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
+		consoleService.logStringMessage("FB_MAILTO: " + msg);
 	}
 };
 
@@ -97,7 +75,7 @@ FB_MAILTO_LISTENER.prototype = {
 		
 		var request = subject.QueryInterface(Components.interfaces.nsIHttpChannel);
 		
-		if (request.URI.spec.match(/facebook.com\/ajax\/profile\/tab/i)){
+		if (request.URI.spec.match(/facebook.com\/ajax\/profile/i)){
 			if (typeof gBrowser != 'undefined') {
 				var num = gBrowser.browsers.length;
 				
